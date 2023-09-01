@@ -1,0 +1,349 @@
+[
+    {
+        "vehicles": {
+            "vehicle": [
+                {
+                    "@_unit": "1",
+                    "@_vehicle_id_number": "3HAEUMML0NL514491",
+                    "@_unit_type": "Straight Truck",
+                    "@_license_state": "PA",
+                    "@_license_number": "ZTB8532"
+                },
+                {
+                    "@_unit": "2"
+                }
+            ]
+        },
+        "violations": {
+            "violation": {
+                "@_convicted_of_dif_charge": "N"
+            }
+        },
+        "@_inspection_date": "2023-06-21",
+        "@_report_state": "PA",
+        "@_report_number": "PAD205317209",
+        "@_level": "3",
+        "@_time_weight": "3",
+        "@_Placarable_HM_Veh_Insp": "No",
+        "@_HM_inspection": "No"
+    },
+    {
+        "vehicles": {
+            "vehicle": [
+                {
+                    "@_unit": "1",
+                    "@_vehicle_id_number": "3HSDZAPR3MN259684",
+                    "@_unit_type": "Truck Tractor",
+                    "@_license_state": "IN",
+                    "@_license_number": "2839104"
+                },
+                {
+                    "@_unit": "2"
+                }
+            ]
+        },
+        "violations": {
+            "violation": {
+                "@_convicted_of_dif_charge": "N"
+            }
+        },
+        "@_inspection_date": "2021-07-30",
+        "@_report_state": "NY",
+        "@_report_number": "NYSPF0172393",
+        "@_level": "3",
+        "@_time_weight": "1",
+        "@_Placarable_HM_Veh_Insp": "No",
+        "@_HM_inspection": "No"
+    },
+    {
+        "vehicles": {
+            "vehicle": [
+                {
+                    "@_unit": "1",
+                    "@_vehicle_id_number": "3AKJHPDV2LSLF0155",
+                    "@_unit_type": "Truck Tractor",
+                    "@_license_state": "IN",
+                    "@_license_number": "2834912"
+                },
+                {
+                    "@_unit": "2"
+                }
+            ]
+        },
+        "violations": {
+            "violation": {
+                "@_convicted_of_dif_charge": "N"
+            }
+        },
+        "@_inspection_date": "2021-08-06",
+        "@_report_state": "SC",
+        "@_report_number": "SCF320000595",
+        "@_level": "3",
+        "@_time_weight": "1",
+        "@_Placarable_HM_Veh_Insp": "No",
+        "@_HM_inspection": "No"
+    },
+    {
+        "vehicles": {
+            "vehicle": [
+                {
+                    "@_unit": "1",
+                    "@_vehicle_id_number": "3AKJHPDV9KSKF9589",
+                    "@_unit_type": "Truck Tractor",
+                    "@_license_state": "IN",
+                    "@_license_number": "3056978"
+                },
+                {
+                    "@_unit": "2",
+                    "@_vehicle_id_number": "LJRC54262B1D19596",
+                    "@_unit_type": "Intermodal Chassis",
+                    "@_license_state": "OK",
+                    "@_license_number": "2158HA"
+                }
+            ]
+        },
+        "violations": {
+            "violation": {
+                "@_convicted_of_dif_charge": "N"
+            }
+        },
+        "@_inspection_date": "2021-08-19",
+        "@_report_state": "US",
+        "@_report_number": "US1542001742",
+        "@_level": "1",
+        "@_time_weight": "1",
+        "@_Placarable_HM_Veh_Insp": "No",
+        "@_HM_inspection": "No"
+    },
+    {
+        "vehicles": {
+            "vehicle": [
+                {
+                    "@_unit": "1",
+                    "@_vehicle_id_number": "3AKJHLDV5KSKA4999",
+                    "@_unit_type": "Truck Tractor",
+                    "@_license_state": "IN",
+                    "@_license_number": "3058978"
+                },
+                {
+                    "@_unit": "2",
+                    "@_vehicle_id_number": "1GRAA56163K252607",
+                    "@_unit_type": "Semi-Trailer",
+                    "@_license_state": "OK",
+                    "@_license_number": "4173GL"
+                }
+            ]
+        },
+        "violations": {
+            "violation": {
+                "@_code": "393.9TS",
+                "@_description": "Inoperative turn signal",
+                "@_oos": "N",
+                "@_time_severity_weight": "6",
+                "@_BASIC": "Vehicle Maint.",
+                "@_unit": "1",
+                "@_convicted_of_dif_charge": "N"
+            }
+        },
+        "@_inspection_date": "2021-08-19",
+        "@_report_state": "MT",
+        "@_report_number": "MTL234003344",
+        "@_level": "2",
+        "@_time_weight": "1",
+        "@_Placarable_HM_Veh_Insp": "No",
+        "@_HM_inspection": "No"
+    },
+    {
+        "vehicles": {
+            "vehicle": [
+                {
+                    "@_unit": "1",
+                    "@_vehicle_id_number": "1HTMMMML2HH655052",
+                    "@_unit_type": "Straight Truck",
+                    "@_license_state": "IN",
+                    "@_license_number": "2345622"
+                },
+                {
+                    "@_unit": "2"
+                }
+            ]
+        },
+        "violations": {
+            "violation": {
+                "@_code": "393.201(b)",
+                "@_description": "Bolts securing cab broken/loose/missing",
+                "@_oos": "N",
+                "@_time_severity_weight": "2",
+                "@_BASIC": "Vehicle Maint.",
+                "@_unit": "1",
+                "@_convicted_of_dif_charge": "N"
+            }
+        },
+        "@_inspection_date": "2021-08-25",
+        "@_report_state": "NY",
+        "@_report_number": "NYSPT0354185",
+        "@_level": "1",
+        "@_time_weight": "1",
+        "@_Placarable_HM_Veh_Insp": "No",
+        "@_HM_inspection": "No"
+    },
+    {
+        "vehicles": {
+            "vehicle": [
+                {
+                    "@_unit": "1",
+                    "@_vehicle_id_number": "3AKJGHDV6JSJJ2335",
+                    "@_unit_type": "Truck Tractor",
+                    "@_license_state": "IN",
+                    "@_license_number": "2695972"
+                },
+                {
+                    "@_unit": "2",
+                    "@_vehicle_id_number": "LJRC54269H1022102",
+                    "@_unit_type": "Intermodal Chassis",
+                    "@_license_state": "OK",
+                    "@_license_number": "BA3083"
+                }
+            ]
+        },
+        "violations": {
+            "violation": {
+                "@_convicted_of_dif_charge": "N"
+            }
+        },
+        "@_inspection_date": "2021-08-25",
+        "@_report_state": "TX",
+        "@_report_number": "TX63NC9DADDO",
+        "@_level": "1",
+        "@_time_weight": "1",
+        "@_Placarable_HM_Veh_Insp": "Yes",
+        "@_HM_inspection": "Yes"
+    },
+    {
+        "vehicles": {
+            "vehicle": [
+                {
+                    "@_unit": "1",
+                    "@_vehicle_id_number": "3HSDZAPR1LN863944",
+                    "@_unit_type": "Truck Tractor",
+                    "@_license_state": "IN",
+                    "@_license_number": "2835804"
+                },
+                {
+                    "@_unit": "2"
+                }
+            ]
+        },
+        "violations": {
+            "violation": {
+                "@_convicted_of_dif_charge": "N"
+            }
+        },
+        "@_inspection_date": "2021-09-07",
+        "@_report_state": "IL",
+        "@_report_number": "IL4069280071",
+        "@_level": "3",
+        "@_time_weight": "1",
+        "@_Placarable_HM_Veh_Insp": "No",
+        "@_HM_inspection": "No"
+    },
+    {
+        "vehicles": {
+            "vehicle": [
+                {
+                    "@_unit": "1",
+                    "@_vehicle_id_number": "3HSDZAPR4LN273012",
+                    "@_unit_type": "Truck Tractor",
+                    "@_license_state": "OK",
+                    "@_license_number": "3DL237"
+                },
+                {
+                    "@_unit": "2",
+                    "@_vehicle_id_number": "1GRAA0629KK162345",
+                    "@_unit_type": "Semi-Trailer",
+                    "@_license_state": "OR",
+                    "@_license_number": "HU39144"
+                }
+            ]
+        },
+        "violations": {
+            "violation": {
+                "@_convicted_of_dif_charge": "N"
+            }
+        },
+        "@_inspection_date": "2021-09-12",
+        "@_report_state": "NC",
+        "@_report_number": "NC0006342411",
+        "@_level": "3",
+        "@_time_weight": "1",
+        "@_Placarable_HM_Veh_Insp": "No",
+        "@_HM_inspection": "No"
+    },
+    {
+        "vehicles": {
+            "vehicle": [
+                {
+                    "@_unit": "1",
+                    "@_vehicle_id_number": "1FUJGEDV9JLEZ8939",
+                    "@_unit_type": "Truck Tractor",
+                    "@_license_state": "IN",
+                    "@_license_number": "2637932"
+                },
+                {
+                    "@_unit": "2",
+                    "@_vehicle_id_number": "1JJV532D6LL130111",
+                    "@_unit_type": "Semi-Trailer",
+                    "@_license_state": "IN",
+                    "@_license_number": "P764146"
+                }
+            ]
+        },
+        "violations": {
+            "violation": [
+                {
+                    "@_code": "392.2-ML",
+                    "@_description": "Failure to Maintain Lane",
+                    "@_oos": "N",
+                    "@_time_severity_weight": "5",
+                    "@_BASIC": "Unsafe Driving",
+                    "@_unit": "D",
+                    "@_convicted_of_dif_charge": "N"
+                },
+                {
+                    "@_code": "393.9",
+                    "@_description": "Inoperable Required Lamp",
+                    "@_oos": "Y",
+                    "@_time_severity_weight": "4",
+                    "@_BASIC": "Vehicle Maint.",
+                    "@_unit": "2",
+                    "@_convicted_of_dif_charge": "N"
+                },
+                {
+                    "@_code": "393.25(f)",
+                    "@_description": "Stop lamp violations",
+                    "@_oos": "N",
+                    "@_time_severity_weight": "6",
+                    "@_BASIC": "Vehicle Maint.",
+                    "@_unit": "2",
+                    "@_convicted_of_dif_charge": "N"
+                },
+                {
+                    "@_code": "393.19",
+                    "@_description": "Inoperative/Defective Hazard Warning Lamp",
+                    "@_oos": "N",
+                    "@_time_severity_weight": "6",
+                    "@_BASIC": "Vehicle Maint.",
+                    "@_unit": "2",
+                    "@_convicted_of_dif_charge": "N"
+                }
+            ]
+        },
+        "@_inspection_date": "2021-09-16",
+        "@_report_state": "MS",
+        "@_report_number": "MS6620000756",
+        "@_level": "2",
+        "@_time_weight": "1",
+        "@_Placarable_HM_Veh_Insp": "No",
+        "@_HM_inspection": "No"
+    }
+]
