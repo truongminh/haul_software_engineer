@@ -1,9 +1,9 @@
 import { inject, injectable } from 'inversify';
 import { MongoDBClient } from '../utils/mongodb/client';
 import TYPES from '../constant/types';
-import { Inspection } from '../models/inspection';
-import { IPage, IQuery, ResponseWithPage } from '../models/page';
+import {  IQuery, IResponseWithPage } from '../models/page';
 import COLLECTIONS from '../constant/collection';
+import { Inspection } from '../models/inspection';
 
 @injectable()
 export class InspectionsService {
@@ -15,7 +15,7 @@ export class InspectionsService {
     this.mongoClient = mongoClient;
   }
 
-  public async getInspections(query: IQuery):Promise<ResponseWithPage<Inspection>> {
+  public async getInspections(query: IQuery): Promise<IResponseWithPage<Inspection>> {
 
     const filter = {}
 
@@ -23,34 +23,64 @@ export class InspectionsService {
       filter["basic"] = query.filter_basic
     }
 
-
-    const total = await this.mongoClient.db.collection(COLLECTIONS.Inspections).countDocuments(filter)
-    const data = await this.mongoClient.db.collection(COLLECTIONS.Inspections).aggregate(
-      [
-        {
-          $match: filter,
+    const aggregatePipeline = [
+      {
+        $match: filter,
+      },
+      {
+        $sort: { date: query.sort_order }
+      },
+      {
+        $facet: {
+          pages: 
+            [
+              {
+                $count: "total"
+              },
+              {
+                $addFields: {
+                  page_size: query.page_size,
+                  page_number: query.page_number,
+                  total_page: {
+                    $ceil :{
+                      $divide: ["$total", query.page_size]
+                    }
+                  }
+                }
+              }
+            ],
+          data: 
+            [
+              {
+                $unset:["vins"]
+              },
+              {
+                $skip: query.page_number * query.page_size
+              },
+              {
+                $limit: query.page_size
+              },
+            ]
         },
-        {
-          $sort: { date: query.sort_order }
-        },
-        {
-          $skip: query.page_number * query.page_size
-        },
-        {
-          $limit: query.page_size
-        },
-        {
-          $unset:["vins"]
+      },
+      {
+        $project: {
+          data: 1,
+          page: {
+            $ifNull: [
+              {
+                $arrayElemAt: ["$pages", 0]
+              },
+              null
+            ]
+          }
         }
-      ]
-    ).toArray()
+      }
+    ]
 
-    return new ResponseWithPage<Inspection>(data as Inspection[], {
-      page_size: query.page_size,
-      page_number: query.page_number,
-      total: total,
-      total_page: Math.ceil(total / query.page_size)
-    } as IPage)
+    const data = await this.mongoClient.db.collection(COLLECTIONS.Inspections).aggregate(aggregatePipeline).next()
+
+    return data as IResponseWithPage<Inspection>
   }
 
   public async getInspection(id: string): Promise<Object> {

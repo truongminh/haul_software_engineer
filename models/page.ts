@@ -36,14 +36,17 @@ export class ResponseWithPage<T> implements IResponseWithPage<T> {
 export function NewQuery(request: Request): IQuery {
   const { page_size, page_number, sort_by, sort_order, basic } = request.query
 
+  const pageSize = parseInt(page_size as string, 10)
+  const pageNumber = parseInt(page_number as string, 10)
+
   let sortOrder = -1
   if (sort_order === "ascending") {
     sortOrder = 1
   }
 
   return {
-    page_size: parseInt(page_size as string, 10),
-    page_number: parseInt(page_number as string, 10),
+    page_size: pageSize,
+    page_number: pageNumber,
     sort_by: sort_by as string,
     sort_order: sortOrder,
     filter_basic: basic
