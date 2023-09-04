@@ -20,11 +20,7 @@ export class InspectionsService {
     const filterBasic = {}
 
     if (query.filter_basic !== ""){
-      filterBasic["basic"] = {
-        $elemMatch: {
-          $eq: query.filter_basic
-        }
-      }
+      filterBasic["basic"] = query.filter_basic
     }
 
     const aggregatePipeline = [
@@ -79,6 +75,13 @@ export class InspectionsService {
 
       {
         $unset:["_sums", "_vins", "codes"]
+      },
+
+      {
+        $unwind: {
+          path: "$basic",
+          preserveNullAndEmptyArrays: true
+        }
       },
 
       {
