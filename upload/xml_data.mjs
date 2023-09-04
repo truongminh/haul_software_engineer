@@ -27,11 +27,14 @@ export function ExtractInspections(filename) {
                 violationList.push(v);
 
                 if(v.basic){
-                    summaryList.push({
-                        code: v.code,
-                        basic: v.basic,
-                        description: v.description
-                    })
+                    if (summaryList.findIndex(d => d.code === v.code && d.basic === v.basic && d.cdc === v.cdc) === -1){
+                        summaryList.push({
+                            code: v.code,
+                            basic: v.basic,
+                            description: v.description,
+                            cdc: v.cdc
+                        })
+                    }
                 }
             }
         }
@@ -66,7 +69,8 @@ function makeViolation(obj) {
     const unit = obj['@_unit'];
     const basic = obj['@_BASIC'];
     const description = obj['@_description']
-    return { code, oos, unit, basic, description };
+    const cdc = obj['@_convicted_of_dif_charge'] == 'Y';
+    return { code, oos, unit, basic, description, cdc };
 }
 
 function makeInspection(obj) {
