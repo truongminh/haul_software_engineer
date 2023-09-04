@@ -1,13 +1,13 @@
 import { Db, MongoClient } from 'mongodb';
-
-const connStr = 'mongodb+srv://u0:GuBCHfJV54RVyY4M@cluster0.8vjcbyf.mongodb.net/?retryWrites=true&w=majority';
-const dbName = "dot_inspection";
+import { IConfig } from '../../config/provider';
 
 export class MongoDBConnection {
   private static isConnected: boolean = false;
   private static db: Db;
+  private static config: IConfig
 
-  public static getConnection(result: (connection) => void) {
+  public static getConnection(config: IConfig, result: (connection) => void) {
+    this.config = config
     if (this.isConnected) {
       return result(this.db);
     } else {
@@ -18,8 +18,8 @@ export class MongoDBConnection {
   }
 
   private static connect(result: (error, db: Db) => void) {
-    MongoClient.connect(connStr).then(client => {
-      this.db = client.db(dbName);
+    MongoClient.connect(this.config.connection_string).then(client => {
+      this.db = client.db(this.config.db_name);
       this.isConnected = true;
       return result(null,this.db)
     }).catch(error => {

@@ -1,14 +1,16 @@
 import { Db } from 'mongodb';
-import { injectable } from 'inversify';
+import { injectable, inject } from 'inversify';
 import { MongoDBConnection } from './connection';
+import TYPES from '../../constant/types';
 import { IPage, IQuery, ResponseWithPage } from '../../models/page';
+import { IConfig } from '../../config/provider';
 
 @injectable()
 export class MongoDBClient {
   public db: Db;
 
-  constructor() {
-    MongoDBConnection.getConnection((connection) => {
+  constructor(@inject(TYPES.Config) config: IConfig) {
+    MongoDBConnection.getConnection(config, (connection) => {
       this.db = connection;
     });
   }

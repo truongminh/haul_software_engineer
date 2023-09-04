@@ -7,6 +7,7 @@ import * as helmet from 'helmet';
 import TYPES from './constant/types';
 import {  MongoDBClient } from './utils/mongodb/client';
 import { InspectionsService } from './service/inspection';
+import { ConfigProvider } from './config/provider'
 
 
 import './controller/inspection';
@@ -20,9 +21,10 @@ if (process.env.NODE_ENV === 'development') {
     container.applyMiddleware(logger);
 }
 
-// container.bind<MongoDBClient>(TYPES.MongoDBClient).to(MongoDBClient);
+container.bind(TYPES.Config).toConstantValue(ConfigProvider.useFactory())
 container.bind<MongoDBClient>(TYPES.MongoDBClient).to(MongoDBClient);
 container.bind<InspectionsService>(TYPES.InspectionService).to(InspectionsService);
+
 
 // start the server
 let server = new InversifyExpressServer(container);
