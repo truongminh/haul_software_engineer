@@ -17,19 +17,74 @@ export class InspectionsService {
 
   public async getInspections(query: IQuery): Promise<IResponseWithPage<Inspection>> {
 
-    const filter = {}
+    const filterBasic = {}
 
     if (query.filter_basic !== ""){
-      filter["basic"] = query.filter_basic
+      filterBasic["basic"] = {
+        $elemMatch: {
+          $eq: query.filter_basic
+        }
+      }
     }
 
     const aggregatePipeline = [
-      {
-        $match: filter,
-      },
+    
       {
         $sort: { date: query.sort_order }
       },
+
+      {
+        $lookup: {
+          from: COLLECTIONS.Violations,
+          localField: 'vins',
+          foreignField: 'vin',
+          as: '_vins'
+        }
+      },
+
+      {
+        $addFields:{
+          codes:{
+            $map:{
+              input: "$_vins",
+              as :"data",
+              in:"$$data.code"
+            }
+          }
+        }
+      },
+
+      {
+        $lookup: {
+          from: COLLECTIONS.Summary,
+          localField: 'codes',
+          foreignField: 'code',
+          as: '_sums'
+        }
+      },
+
+      {
+        $addFields:{
+          basic:{
+            $setUnion: {
+              $map:{
+                input: "$_sums",
+                as :"data",
+                in:"$$data.basic"
+              }
+            }
+          }
+        }
+      },
+
+      {
+        $unset:["_sums", "_vins", "codes"]
+      },
+
+      {
+        $match: filterBasic,
+      },
+
       {
         $facet: {
           pages: 

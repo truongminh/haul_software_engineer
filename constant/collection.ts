@@ -1,7 +1,8 @@
 const COLLECTIONS = {
     Inspections: 'inspections',
     Vehicles: 'vehicles',
-    Violations: "violations"
+    Violations: "violations",
+    Summary: "summary"
 };
 
 export default COLLECTIONS;
