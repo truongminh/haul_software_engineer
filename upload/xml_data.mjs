@@ -24,7 +24,14 @@ export function ExtractInspections(filename) {
                 const vehicle = vehicles.find(ve => ve.unit == v.unit) || vehicles[0];
                 v.vin = vehicle._id;
                 v._id = `${v.ins}_${v.vin}`;
-                violationList.push(v);
+                violationList.push({
+                    _id: v._id, 
+                    ins: v.ins,
+                    vin: v.vin,
+                    unit: v.unit,
+                    code: v.code,
+                    oss: v.oos
+                });
 
                 if(v.basic){
                     if (summaryList.findIndex(d => d.code === v.code && d.basic === v.basic && d.cdc === v.cdc) === -1){
