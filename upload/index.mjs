@@ -44,8 +44,11 @@ const insertMany = async (col_name, records, indexes) => {
     }
 }
 
+console.log(data.summary)
+
 await insertMany('inspections', data.inspections, [['vins'], ['date', -1]]);
 await insertMany('vehicles', data.vehicles, [['license_number']]);
 await insertMany('violations', data.violations, [['vin']]);
+await insertMany('summary', data.summary, [['code']]);
 
 process.exit(0);

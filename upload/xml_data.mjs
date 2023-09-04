@@ -13,6 +13,7 @@ export function ExtractInspections(filename) {
     const inspections = [];
     const vehicleMap = new Map();
     const violationList = [];
+    const summaryList = [];
     for (const d of data) {
         const { vehicles, violations, ...ins } = d;
         inspections.push(ins);
@@ -24,11 +25,23 @@ export function ExtractInspections(filename) {
                 v.vin = vehicle._id;
                 v._id = `${v.ins}_${v.vin}`;
                 violationList.push(v);
+
+                if(v.basic){
+                    summaryList.push({
+                        code: v.code,
+                        basic: v.basic,
+                        description: v.description
+                    })
+                }
             }
         }
     }
     const vehicles = [...vehicleMap.values()];
-    return { inspections, vehicles, violations: violationList };
+    return { inspections, vehicles, violations: violationList, summary: summaryList };
+}
+
+export function ExtractViolationSumary(filename) {
+
 }
 
 /************************************************************************************** */
@@ -51,7 +64,9 @@ function makeViolation(obj) {
     }
     const oos = obj["@_oos"] == 'Yes';
     const unit = obj['@_unit'];
-    return { code, oos, unit };
+    const basic = obj['@_BASIC'];
+    const description = obj['@_description']
+    return { code, oos, unit, basic, description };
 }
 
 function makeInspection(obj) {
