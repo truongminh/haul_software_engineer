@@ -7,6 +7,10 @@
 - Rename `config.example.json` to `config.json` 
 - Update the DB information as needed
 
+## Init the database
+- The accepted raw data is xml files downloaded from https://ai.fmcsa.dot.gov/SMS/Carrier/80806/CompleteProfile.aspx
+- See `upload/index.mjs` on how the processing works
+
 ## APIs
 
 ### List inspection
