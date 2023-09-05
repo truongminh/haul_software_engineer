@@ -17,7 +17,7 @@ export interface IResponseWithPage<T> {
   page: IPage
 }
 
-export interface IQuery extends IQueryPaging{
+export interface IQuery extends IQueryPaging {
   sort_by: string
   sort_order: number
   filter_basic: string
@@ -36,8 +36,8 @@ export class ResponseWithPage<T> implements IResponseWithPage<T> {
 export function NewQuery(request: Request): IQuery {
   const { page_size, page_number, sort_by, sort_order, basic } = request.query
 
-  const pageSize = parseInt(page_size as string, 10)
-  const pageNumber = parseInt(page_number as string, 10)
+  const pageSize = parseInt(page_size as string, 10) || 10;
+  const pageNumber = parseInt(page_number as string, 10) || 1;
 
   let sortOrder = -1
   if (sort_order === "ascending") {

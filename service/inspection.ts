@@ -1,5 +1,5 @@
 import { inject, injectable } from 'inversify';
-import { MongoDBClient } from '../utils/mongodb/client';
+import { MongoDBClient } from '../infra/mongodb';
 import TYPES from '../constant/types';
 import {  IQuery, IResponseWithPage } from '../models/page';
 import COLLECTIONS from '../constant/collection';
