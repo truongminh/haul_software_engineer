@@ -5,7 +5,9 @@
   "author": "",
   "license": "",
   "scripts": {
-    "start": "ts-node index.ts",
+    "start": "node .",
+    "dev": "ts-node index.ts",
+    "build": "tsc",
     "test": "nyc --clean --all --require ts-node/register --require reflect-metadata/Reflect --extension .ts -- mocha --exit --timeout 5000",
     "test:all": "npm test **/*.spec.ts",
     "update": "updates --update --minor && npm install",
@@ -21,9 +23,7 @@
     "inversify-logger-middleware": "3.1.0",
     "mongodb": "6.0.0",
     "morgan": "1.10.0",
-    "reflect-metadata": "0.1.13",
-    "ts-node": "10.9.1",
-    "typescript": "5.2.2"
+    "reflect-metadata": "0.1.13"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.2",
@@ -37,6 +37,8 @@
     "chai": "4.3.8",
     "mocha": "^10.2.0",
     "nyc": "15.1.0",
+    "ts-node": "10.9.1",
+    "typescript": "5.2.2",
     "updates": "^14.5.0"
   },
   "nyc": {
