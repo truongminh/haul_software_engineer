@@ -7,11 +7,8 @@ import * as helmet from 'helmet';
 import TYPES from './constant/types';
 import {  MongoDBClient } from './utils/mongodb/client';
 import { InspectionsService } from './service/inspection';
-import { ConfigProvider } from './config/provider'
-
-
+import { ConfigProvider } from './config/provider';
 import './controller/inspection';
-
 
 // load everything needed to the Container
 let container = new Container();
