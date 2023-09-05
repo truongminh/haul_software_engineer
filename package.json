@@ -6,7 +6,7 @@
   "license": "",
   "scripts": {
     "start": "node .",
-    "dev": "ts-node index.ts",
+    "dev": "tsc && ts-node index.ts",
     "build": "tsc",
     "test": "nyc --clean --all --require ts-node/register --require reflect-metadata/Reflect --extension .ts -- mocha --exit --timeout 5000",
     "test:all": "npm test **/*.spec.ts",

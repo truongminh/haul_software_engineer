@@ -11,60 +11,28 @@ export function ExtractInspections(filename) {
     const records = obj.carrierData.inspections.inspection || [];
     const data = records.map(makeInspection);
     const inspections = [];
-    const vehicleMap = new Map();
-    const violationList = [];
-    const summaryList = [];
     for (const d of data) {
         const { vehicles, violations, ...ins } = d;
-        inspections.push(ins);
-        vehicles.forEach(v => vehicleMap.set(v._id, v));
-        if (violations) {
-            for (const v of violations) {
-                v.ins = ins._id;
-                const vehicle = vehicles.find(ve => ve.unit == v.unit) || vehicles[0];
-                v.vin = vehicle._id;
-                v._id = `${v.ins}_${v.vin}`;
-                violationList.push({
-                    _id: v._id, 
-                    ins: v.ins,
-                    vin: v.vin,
-                    unit: v.unit,
-                    code: v.code,
-                    oss: v.oos
-                });
-
-                if(v.basic){
-                    if (summaryList.findIndex(d => d.code === v.code && d.basic === v.basic && d.cdc === v.cdc) === -1){
-                        summaryList.push({
-                            code: v.code,
-                            basic: v.basic,
-                            description: v.description,
-                            cdc: v.cdc
-                        })
-                    }
-                }
-            }
+        for (const violation of violations) {
+            const vehicle = vehicles.find(ve => ve.unit == violation.unit) || vehicles[0];
+            const inspection = { ...ins, vehicle, violation };
+            inspections.push(inspection);
         }
     }
-    const vehicles = [...vehicleMap.values()];
-    return { inspections, vehicles, violations: violationList, summary: summaryList };
-}
-
-export function ExtractViolationSumary(filename) {
-
+    return inspections;
 }
 
 /************************************************************************************** */
 function makeVehicle(obj) {
-    const _id = obj['@_vehicle_id_number'] || obj['@_license_number'];
-    if (!_id) {
+    const vin = obj['@_vehicle_id_number'] || obj['@_license_number'];
+    if (!vin) {
         return null;
     }
     const license_state = obj['@_license_state'];
     const license_number = obj['@_license_number'];
     const type = obj['@_unit_type'];
     const unit = +obj['@_unit'];
-    return { _id, license_state, license_number, type, unit };
+    return { vin, license_state, license_number, type, unit };
 }
 
 function makeViolation(obj) {
@@ -83,7 +51,7 @@ function makeViolation(obj) {
 function makeInspection(obj) {
     const date = new Date(obj['@_inspection_date']);
     const state = obj['@_report_state'];
-    const _id = obj['@_report_number'];
+    const no = obj['@_report_number'];
     const level = +obj['@_level'];
     const weight = +obj['@_time_weight'];
     const hm = obj['@_HM_inspection'] == 'Yes';
@@ -102,9 +70,8 @@ function makeInspection(obj) {
             }
         }
     }
-    const vins = vehicles.map(v => v._id);
     return {
-        _id, date, vins,
+        no, date,
         state, level, weight, hm, phm,
         vehicles, violations,
     };

@@ -23,30 +23,27 @@ const data = ExtractInspections(filename);
 const client = new MongoClient(url);
 await client.connect();
 console.log("connected to db");
-const db = client.db('dot_inspection');
+const db = client.db('test_inspection');
 
-const insertMany = async (col_name, records, indexes) => {
-    try {
-        const col = db.collection(col_name);
-        await col.insertMany(
-            records,
-            { ordered: false }
-        );
-        await col.createIndex(indexes)
-        return records.length;
-    } catch (e) {
-        if (e.code == 11000) {
-            // ignore
-            return e.result.insertedCount;;
-        }
+try {
+    const col = db.collection("inspections");
+    
+    await col.createIndex({ date: 1 });
+    await col.createIndex({ no: 1 });
+    await col.createIndex({ 'violation.basic': 1 });
+
+    const records = data;
+    await col.insertMany(
+        records,
+        { ordered: false }
+    );
+} catch (e) {
+    if (e.code == 11000) {
+        // ignore
+        console.log(e.result.insertedCount);
+    } else {
         console.log(e);
-        return 0;
     }
 }
-
-await insertMany('inspections', data.inspections, [['vins'], ['date', -1]]);
-await insertMany('vehicles', data.vehicles, [['license_number']]);
-await insertMany('violations', data.violations, [['vin']]);
-await insertMany('summary', data.summary, [['code']]);
 
 process.exit(0);
