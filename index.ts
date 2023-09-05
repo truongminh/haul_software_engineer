@@ -6,9 +6,9 @@ import * as bodyParser from 'body-parser';
 import * as helmet from 'helmet';
 import TYPES from './constant/types';
 import { MongoDBClient } from './infra/mongodb';
-import { InspectionsService } from './service/inspection';
-import { ConfigProvider } from './config/provider';
+import { InspectionRepository } from './repo/inspection';
 import './controller/inspection';
+import { readConfig } from './constant/config';
 
 // load everything needed to the Container
 let container = new Container();
@@ -18,13 +18,14 @@ if (process.env.NODE_ENV === 'development') {
   container.applyMiddleware(logger);
 }
 
-container.bind(TYPES.Config).toConstantValue(ConfigProvider.useFactory())
-container.bind<MongoDBClient>(TYPES.MongoDBClient).to(MongoDBClient).inSingletonScope();
-container.bind<InspectionsService>(TYPES.InspectionService).to(InspectionsService).inSingletonScope();
-
+container.bind(TYPES.Config).toConstantValue(readConfig());
+container.bind<MongoDBClient>(TYPES.MongoDBClient)
+  .to(MongoDBClient).inSingletonScope();
+container.bind<InspectionRepository>(TYPES.InspectionRepo)
+  .to(InspectionRepository).inSingletonScope();
 
 async function start() {
-  container.get<MongoDBClient>(TYPES.MongoDBClient).init();
+  await container.get<MongoDBClient>(TYPES.MongoDBClient).init();
   // start the server
   let server = new InversifyExpressServer(container);
   let app = server.build();

@@ -1,7 +1,7 @@
 const COLLECTIONS = {
     Inspections: 'inspections',
     Vehicles: 'vehicles',
-    Violations: "violations",
+    Violation: "violations",
     Summary: "summary"
 };
 

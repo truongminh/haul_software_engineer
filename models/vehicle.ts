@@ -1,5 +1,5 @@
 
-export interface IVehicle {
+export interface Vehicle {
   type: string;
   license_state: string;
   license_number: string;

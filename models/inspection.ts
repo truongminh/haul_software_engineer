@@ -5,7 +5,6 @@ export interface Inspection  {
   vins: string[];
   level: number;
   hm: boolean;
-  basic: string;
   code: string;
   phm: boolean;
   weight: number;
