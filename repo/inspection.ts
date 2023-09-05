@@ -80,6 +80,9 @@ export class InspectionRepository {
       return null;
     }
     const ins = data[0];
+    const vehicleMap = new Map(data.map(d => [d.vehicle.vin, d.vehicle]));
+    const vehicles = Array.from(vehicleMap.values()).sort((a, b) => a.unit < b.unit ? -1 : 1);
+    const violations = data.map(d => d.violation).sort((a, b) => a.unit < b.unit ? -1 : 1);
     const detail: InspectionDetail = {
       no: ins.no,
       date: ins.date,
@@ -88,8 +91,8 @@ export class InspectionRepository {
       hm: ins.hm,
       phm: ins.phm,
       weight: ins.weight,
-      vehicles: data.map(d => d.vehicle),
-      violations: data.map(d => d.violation)
+      vehicles,
+      violations
     };
     return detail;
   }

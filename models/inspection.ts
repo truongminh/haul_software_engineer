@@ -11,6 +11,7 @@ export interface Vehicle {
   license_state: string;
   license_number: string;
   vin: string;
+  unit: number;
 }
 
 export interface Inspection {
