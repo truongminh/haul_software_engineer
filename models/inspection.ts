@@ -1,4 +1,4 @@
-interface Violation {
+export interface Violation {
   code: string;
   ins: string;
   oss: boolean;
@@ -6,7 +6,7 @@ interface Violation {
   basic: string;
 }
 
-interface Vehicle {
+export interface Vehicle {
   type: string;
   license_state: string;
   license_number: string;
@@ -16,14 +16,9 @@ interface Vehicle {
 export interface Inspection {
   date: Date;
   state: string;
-  vins: string[];
   level: number;
   hm: boolean;
-  code: string;
   phm: boolean;
   weight: number;
   no: string;
-
-  violation: Violation;
-  vehicle: Vehicle;
 }

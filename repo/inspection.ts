@@ -2,7 +2,7 @@ import { inject, injectable } from 'inversify';
 import { MongoDBClient } from '../infra/mongodb';
 import TYPES from '../constant/types';
 import COLLECTIONS from '../constant/collection';
-import { Inspection } from '../models/inspection';
+import { Inspection, Vehicle, Violation } from '../models/inspection';
 
 export interface InspectionQuery {
   filter_basic: string;
@@ -20,6 +20,16 @@ export interface InspectionView {
   weight: number;
 }
 
+export interface InspectionDetail extends Inspection {
+  vehicles: Vehicle[];
+  violations: Violation[];
+}
+
+interface InspectionRawData extends Inspection {
+  vehicle: Vehicle;
+  violation: Violation | null;
+}
+
 @injectable()
 export class InspectionRepository {
   constructor(
@@ -27,7 +37,7 @@ export class InspectionRepository {
   ) {
   }
 
-  private inspectionCollection = this.mongoClient.db.collection<Inspection>(COLLECTIONS.Inspections);
+  private inspectionCollection = this.mongoClient.db.collection<InspectionRawData>(COLLECTIONS.Inspections);
 
   private async getFilter(query: InspectionQuery) {
     const filter = {};
@@ -64,8 +74,23 @@ export class InspectionRepository {
     return view;
   }
 
-  public async getInspection(id: string) {
-    const data = await this.inspectionCollection.findOne({ _id: id as any });
-    return data[0];
+  public async getInspection(report_number: string) {
+    const data = await this.inspectionCollection.find({ no: report_number }).toArray();
+    if (data.length < 1) {
+      return null;
+    }
+    const ins = data[0];
+    const detail: InspectionDetail = {
+      no: ins.no,
+      date: ins.date,
+      state: ins.state,
+      level: ins.level,
+      hm: ins.hm,
+      phm: ins.phm,
+      weight: ins.weight,
+      vehicles: data.map(d => d.vehicle),
+      violations: data.map(d => d.violation)
+    };
+    return detail;
   }
 }
