@@ -1,10 +1,11 @@
 {
-  "name": "inversify-express-example",
+  "name": "dot-inspection",
   "version": "1.0.0",
-  "description": "Examples for using inversify with expressjs",
-  "author": "lholznagel",
-  "license": "MIT",
+  "description": "Sample view of dot inspections",
+  "author": "",
+  "license": "",
   "scripts": {
+    "start": "ts-node bootstrap.ts",
     "test": "nyc --clean --all --require ts-node/register --require reflect-metadata/Reflect --extension .ts -- mocha --exit --timeout 5000",
     "test:all": "npm test **/*.spec.ts",
     "update": "updates --update --minor && npm install",
