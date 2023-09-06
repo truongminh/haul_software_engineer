@@ -11,12 +11,12 @@ class DataTable extends HTMLElement {
 		// attributes to do, datakey 
 		if(this.hasAttribute('cols')) this.cols = this.getAttribute('cols').split(',');
 
-		this.pageSize = 5;
+		this.pageSize = 10;
 		if(this.hasAttribute('pagesize')) this.pageSize = this.getAttribute('pagesize');
 
 		// helper values for sorting and paging
 		this.sortAsc = false;
-		this.curPage = 100;
+		this.curPage = 1;
 
 		// const shadow = this.attachShadow({
 		// 	mode: 'open'
@@ -78,7 +78,7 @@ class DataTable extends HTMLElement {
 	async load() {
 		console.log('load', this.src, this.filterBasic);
 		// error handling needs to be done :|
-		let result = await fetch(this.src + `?sort_by=${this.sortCol}&sort_order=${this.sortAsc ? 'asc' : 'desc'}&basic=${this.filterBasic ?? ''}&page_size=10&page_number=${this.curPage}`);
+		let result = await fetch(this.src + `?sort_by=${this.sortCol}&sort_order=${this.sortAsc ? 'asc' : 'desc'}&basic=${this.filterBasic ?? ''}&page_size=${this.pageSize}&page_number=${this.curPage}`);
 		let data = await result.json();
 
         this.data = data.data
