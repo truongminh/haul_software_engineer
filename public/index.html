@@ -16,8 +16,27 @@
   </svg>
 
   <div class="container" style="margin-top: 10px; background-color: white; border-radius: 8px; overflow-y: auto; height: 100%;">
-    <!-- <div class="input-group mb-3" style="margin-top: 10px; margin-left: 8px; padding: 5px; background-color: #dadada; width: fit-content;">Basic:
-    </div> -->
+    <div class="input-group mb-3" style="margin-top: 10px; margin-left: 8px; padding: 5px; background-color: #dadada; width: fit-content; text-align: center;">
+
+      <div class="row g-3 align-items-center">
+        <div class="col-auto">
+          <label for="inputPassword6" class="col-form-label">Basic:</label>
+        </div>
+        <div class="col-auto">
+          <select id="select-basic" class="form-select" aria-label="Default select example">
+            <option value="" selected>---- Select Basic ----</option>
+            <option value="Vehicle Maint.">Vehicle Maint.</option>
+            <option value="HOS Compliance">HOS Compliance</option>
+            <option value="Driver Fitness">Driver Fitness</option>
+            <option value="Unsafe Driving">Unsafe Driving</option>
+            <option value="Drugs/Alcohol">Drugs/Alcohol</option>
+          </select>
+        </div>
+        
+      </div>
+
+     
+    </div>
     <data-table class="table" src="/inspection"></data-table>
   </div>
 

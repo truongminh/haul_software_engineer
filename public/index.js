@@ -65,12 +65,20 @@ class DataTable extends HTMLElement {
 		nextButton.addEventListener('click', this.nextPage, false);
 		prevButton.addEventListener('click', this.previousPage, false);
 
+		const that = this
+
+		const selectBasic = document.getElementById('select-basic')
+		selectBasic.addEventListener('change', function(){
+			console.log(selectBasic.value)
+			that.filterBasic = selectBasic.value
+			that.load()
+		})
 	}
 
 	async load() {
-		console.log('load', this.src);
+		console.log('load', this.src, this.filterBasic);
 		// error handling needs to be done :|
-		let result = await fetch(this.src + `?sort_by=${this.sortCol}&sort_order=${this.sortAsc ? 'asc' : 'desc'}&basic=&page_size=10&page_number=${this.curPage}`);
+		let result = await fetch(this.src + `?sort_by=${this.sortCol}&sort_order=${this.sortAsc ? 'asc' : 'desc'}&basic=${this.filterBasic ?? ''}&page_size=10&page_number=${this.curPage}`);
 		let data = await result.json();
 
         this.data = data.data
