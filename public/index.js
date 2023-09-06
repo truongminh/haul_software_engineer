@@ -70,7 +70,7 @@ class DataTable extends HTMLElement {
 	async load() {
 		console.log('load', this.src);
 		// error handling needs to be done :|
-		let result = await fetch(this.src + `?sort_order=ascending&basic=&page_size=10&page_number=${this.curPage}`);
+		let result = await fetch(this.src + `?sort_by=${this.sortCol}&sort_order=${this.sortAsc ? 'asc' : 'desc'}&basic=&page_size=10&page_number=${this.curPage}`);
 		let data = await result.json();
 
         this.data = data.data
@@ -107,7 +107,7 @@ class DataTable extends HTMLElement {
             let month = date.getUTCMonth() + 1
             let year = date.getUTCFullYear()
 
-			let r = '<tr style="color:red;">';
+			let r = '<tr>';
 			// this.cols.forEach(col => {
             r += `<td>${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}/${year}</td>`;
             r += `<td>${c["no"]}</td>`;
@@ -129,7 +129,7 @@ class DataTable extends HTMLElement {
 
 		let header = '<tr>';
 		this.cols.forEach(col => {
-			header += `<th style="color:gray;" data-sort="${col}">${col}</th>`;
+			header += `<th style="color:gray; cursor: pointer;" data-sort="${col}">${col}</th>`;
 		});
 		let thead = this.querySelector('thead')
 		thead.innerHTML = header;
@@ -142,16 +142,27 @@ class DataTable extends HTMLElement {
 
 	async sort(e) {
 		let thisSort = e.target.dataset.sort;
-		console.log('sort by',thisSort);
+		let sortBy = thisSort.toString().replace(' ', '_').toLowerCase()
 
-		if(this.sortCol && this.sortCol === thisSort) this.sortAsc = !this.sortAsc;
-		this.sortCol = thisSort;
-		this.data.sort((a, b) => {
-			if(a[this.sortCol] < b[this.sortCol]) return this.sortAsc?1:-1;
-			if(a[this.sortCol] > b[this.sortCol]) return this.sortAsc?-1:1;
-			return 0;
-		});
-		this.renderBody();	
+		console.log('sort by',thisSort.toString() , sortBy,  this.sortAsc);
+
+		switch(sortBy){
+			case 'inspection_number':{
+				sortBy = 'no'
+				break
+			}
+
+			case 'vehicle_plate': {
+				sortBy = 'plate'
+				break
+			}
+		}
+
+		if(this.sortCol && this.sortCol === sortBy) this.sortAsc = !this.sortAsc;
+
+
+		this.sortCol = sortBy;
+		this.load();	
 	}
 
 	static get observedAttributes() { return ['src']; }
