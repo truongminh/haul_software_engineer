@@ -6,11 +6,6 @@ const url = 'mongodb+srv://u0:GuBCHfJV54RVyY4M@cluster0.8vjcbyf.mongodb.net/?ret
 const filename = "./USDOT_80806_All_BASICs_Public_07-28-2023.xml";
 
 const data = ExtractInspections(filename);
-// console.log(
-//     data.vehicles.length,
-//     data.inspections.length,
-//     data.violations.length,
-// );
 
 // console.log(data.violations.slice(0, 2));
 

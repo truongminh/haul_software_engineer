@@ -18,6 +18,11 @@ export function ExtractInspections(filename) {
             const inspection = { ...ins, vehicle, violation };
             inspections.push(inspection);
         }
+        if (violations.length < 1) {
+            const vehicle = vehicles[0];
+            const inspection = { ...ins, vehicle, violation: null };
+            inspections.push(inspection);
+        }
     }
     return inspections;
 }
