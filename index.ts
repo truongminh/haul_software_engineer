@@ -33,6 +33,9 @@ async function start() {
   let app = server.build();
 
   app.use(express.static(path.join(__dirname, "public")))
+  app.use('/', function(req, res){
+    res.sendFile(path.join(__dirname, "public", "view.html"))
+  })
 
   server.setConfig((app) => {
     app.use(bodyParser.urlencoded({

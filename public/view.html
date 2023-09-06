@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <title>Inspection</title>
+</head>
+<body style="background-color: #dadada;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+    <symbol id="person" viewBox="0 0 16 16">
+      <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+    </symbol>
+  </svg>
+
+  <div class="container" style="margin-top: 10px;">
+
+    <h3 id="title-no"></h3>
+
+    <div style="padding: 10px; background-color: white; border-radius: 8px;">
+      <data-view src="/inspection" style="padding: 6px;">
+
+        <div class="row">
+          <div class="col col-md-6">
+           
+              <div class="container">
+                <div class="col col-md-12"> 
+                  <div class="form-floating">
+                    <input id="input-date" type="text" class="form-control" id="input1" value="" disabled>
+                    <label for="input1">Date</label>
+                  </div>
+                </div>
+            
+        
+
+              <div class="row mt-2">
+                <div class="col col-md-12"> 
+                  <div class="form-floating">
+                    <input id="input-level" type="text" class="form-control" id="input4" value="" disabled>
+                    <label for="input4">Level</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            
+          </div>
+          <div class="col col-md-6">
+
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12"> 
+                    <div class="form-floating">
+                      <input id="input-report-number" type="text" class="form-control" id="input2" value="" disabled>
+                      <label for="input2">Report Number</label>
+                    </div>
+                </div>
+              </div>
+
+              <div class="row mt-2">
+                <div class="col col-md-12"> 
+                  <div class="form-floating">
+                    <input id="input-report-state" type="text" class="form-control" id="input3" value="" disabled>
+                    <label for="input3">Report State</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          
+          </div>
+        </div>
+
+        <div class="row mt-5">
+          <div class="container" style="margin-left: 12px;">
+            <h3">Vehicle Infomation</h3>
+
+            <table class="table" style="max-width: 98%;">
+              <thead>
+                <tr>
+                  <th scope="col">Unit</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Plate State</th>
+                  <th scope="col">Plate Number</th>
+                  <th scope="col">VIN</th>
+                </tr>
+              </thead>
+              <tbody id="table-vehicle-body">
+              </tbody>
+            </table>
+          </div>
+         
+        </div>
+
+        <div class="row mt-5">
+          <div class="container" style="margin-left: 12px;">
+            <h3">Violations</h3>
+
+            <table class="table" style="max-width: 98%;">
+              <thead>
+                <tr>
+                  <th scope="col">Code</th>
+                  <th scope="col">Unit</th>
+                  <th scope="col">OOS</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">BASIC</th>
+                </tr>
+              </thead>
+              <tbody id="table-violations-body">
+              </tbody>
+            </table>
+          </div>
+         
+        </div>
+      </data-view>
+
+      <button type="button" class="btn btn-dark" onclick="location.href='/'">Back to List</button>
+    </div>
+
+    
+  </div>
+  
+
+  <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/view.js"></script>
+</body>
+</html>
+    
