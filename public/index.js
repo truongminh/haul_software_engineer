@@ -1,18 +1,18 @@
 class DataTable extends HTMLElement {
 
-	
+
 	constructor() {
 		super();
 
-		if(this.hasAttribute('src')) this.src = this.getAttribute('src');
+		if (this.hasAttribute('src')) this.src = this.getAttribute('src');
 		// If no source, do nothing
-		if(!this.src) return;
+		if (!this.src) return;
 
 		// attributes to do, datakey 
-		if(this.hasAttribute('cols')) this.cols = this.getAttribute('cols').split(',');
+		if (this.hasAttribute('cols')) this.cols = this.getAttribute('cols').split(',');
 
 		this.pageSize = 10;
-		if(this.hasAttribute('pagesize')) this.pageSize = this.getAttribute('pagesize');
+		if (this.hasAttribute('pagesize')) this.pageSize = this.getAttribute('pagesize');
 
 		// helper values for sorting and paging
 		this.sortAsc = false;
@@ -22,9 +22,9 @@ class DataTable extends HTMLElement {
 		// 	mode: 'open'
 		// });
 
-		
 
-    	const table = document.createElement('table');
+
+		const table = document.createElement('table');
 		const thead = document.createElement('thead');
 		const tbody = document.createElement('tbody');
 
@@ -35,7 +35,7 @@ class DataTable extends HTMLElement {
 		const navUl = document.createElement('ul');
 		navUl.className = "pagination"
 
-		
+
 
 		const prevButton = document.createElement('li');
 		prevButton.className = "page-item"
@@ -68,7 +68,7 @@ class DataTable extends HTMLElement {
 		const that = this
 
 		const selectBasic = document.getElementById('select-basic')
-		selectBasic.addEventListener('change', function(){
+		selectBasic.addEventListener('change', function () {
 			console.log(selectBasic.value)
 			that.filterBasic = selectBasic.value
 			that.load()
@@ -81,25 +81,25 @@ class DataTable extends HTMLElement {
 		let result = await fetch(this.src + `?sort_by=${this.sortCol}&sort_order=${this.sortAsc ? 'asc' : 'desc'}&basic=${this.filterBasic ?? ''}&page_size=${this.pageSize}&page_number=${this.curPage}`);
 		let data = await result.json();
 
-        this.data = data.data
-        this.meta = data.meta
+		this.data = data.data
+		this.meta = data.meta
 
 		this.render();
 	}
 
 	nextPage() {
-		if((this.curPage * this.pageSize) < this.meta.count) this.curPage++;
-        this.load()
+		if ((this.curPage * this.pageSize) < this.meta.count) this.curPage++;
+		this.load()
 	}
 
 	previousPage() {
-		if(this.curPage > 1) this.curPage--;
+		if (this.curPage > 1) this.curPage--;
 		this.load()
 	}
 
 	render() {
 		console.log('render time', this.data, this.page);
-		if(!this.cols) this.cols = ["Date", "Inspection Number", "Vehicle Plate", "BASIC", "Weight", "Links"];
+		if (!this.cols) this.cols = ["Date", "Inspection Number", "Vehicle Plate", "BASIC", "Weight", "Links"];
 
 		this.renderHeader();
 		this.renderBody();
@@ -110,18 +110,18 @@ class DataTable extends HTMLElement {
 		let result = '';
 		this.data.forEach(c => {
 
-            let date = new Date(c["date"])
-            let day = date.getUTCDate()
-            let month = date.getUTCMonth() + 1
-            let year = date.getUTCFullYear()
+			let date = new Date(c["date"])
+			let day = date.getUTCDate()
+			let month = date.getUTCMonth() + 1
+			let year = date.getUTCFullYear()
 
 			let r = '<tr>';
 			// this.cols.forEach(col => {
-            r += `<td>${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}/${year}</td>`;
-            r += `<td>${c["no"]}</td>`;
-            r += `<td>${c["plate"]}</td>`;
-            r += `<td>${c["basic"] ?? "-"}</td>`;
-            r += `<td>${c["weight"]}</td>`;
+			r += `<td>${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}/${year}</td>`;
+			r += `<td>${c["no"]}</td>`;
+			r += `<td>${c["plate"]}</td>`;
+			r += `<td>${c["basic"] ?? "-"}</td>`;
+			r += `<td>${c["weight"]}</td>`;
 			r += `<td><a href="/${c["no"]}"><svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#person"/></svg></a></td>`
 			// });
 			r += '</tr>';
@@ -137,7 +137,12 @@ class DataTable extends HTMLElement {
 
 		let header = '<tr>';
 		this.cols.forEach(col => {
-			header += `<th style="color:gray; cursor: pointer;" data-sort="${col}">${col}</th>`;
+			let name = col;
+			if (this.sortCol === this.getSortCol(col)) {
+				const caret = this.sortAsc > 0 ? '&#9650;' : '&#9660;'
+				name = `${col} ${caret}`;
+			}
+			header += `<th style="color:gray; cursor: pointer;" data-sort="${col}">${name}</th>`;
 		});
 		let thead = this.querySelector('thead')
 		thead.innerHTML = header;
@@ -148,14 +153,10 @@ class DataTable extends HTMLElement {
 
 	}
 
-	async sort(e) {
-		let thisSort = e.target.dataset.sort;
-		let sortBy = thisSort.toString().replace(' ', '_').toLowerCase()
-
-		console.log('sort by',thisSort.toString() , sortBy,  this.sortAsc);
-
-		switch(sortBy){
-			case 'inspection_number':{
+	getSortCol(colName) {
+		let sortBy = colName.toString().replace(' ', '_').toLowerCase()
+		switch (sortBy) {
+			case 'inspection_number': {
 				sortBy = 'no'
 				break
 			}
@@ -165,12 +166,16 @@ class DataTable extends HTMLElement {
 				break
 			}
 		}
+		return sortBy;
+	}
 
-		if(this.sortCol && this.sortCol === sortBy) this.sortAsc = !this.sortAsc;
-
-
+	async sort(e) {
+		let colName = e.target.dataset.sort;
+		const sortBy = this.getSortCol(colName) || 'no';
+		if (this.sortCol && this.sortCol === sortBy) this.sortAsc = !this.sortAsc;
+		console.log('sort by', colName.toString(), sortBy, this.sortAsc);
 		this.sortCol = sortBy;
-		this.load();	
+		this.load();
 	}
 
 	static get observedAttributes() { return ['src']; }
@@ -180,7 +185,7 @@ class DataTable extends HTMLElement {
 		console.log(name)
 
 		// even though we only listen to src, be sure
-		if(name === 'src') {
+		if (name === 'src') {
 			this.src = newValue;
 			this.load();
 		}
