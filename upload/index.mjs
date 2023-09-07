@@ -2,7 +2,8 @@ import { ExtractInspections } from "./xml_data.mjs";
 import { MongoClient } from 'mongodb';
 
 // CONFIG
-const url = 'mongodb+srv://u0:GuBCHfJV54RVyY4M@cluster0.8vjcbyf.mongodb.net/?retryWrites=true&w=majority'
+const db_url = process.env.DB_URL;
+const db_name = process.env.DB_NAME;
 const filename = "./USDOT_80806_All_BASICs_Public_07-28-2023.xml";
 
 const data = ExtractInspections(filename);
@@ -15,10 +16,10 @@ const data = ExtractInspections(filename);
 
 /******************************************** */
 // INSERT TO DB
-const client = new MongoClient(url);
+const client = new MongoClient(db_url);
 await client.connect();
 console.log("connected to db");
-const db = client.db('test_inspection');
+const db = client.db(db_name);
 
 try {
     const col = db.collection("inspections");

@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs';
+import { config } from 'dotenv';
 
 export interface IConfig {
     connection_string: string
@@ -6,6 +6,10 @@ export interface IConfig {
 }
 
 export const readConfig = () => {
-    const rawConfig = readFileSync('config.json', 'utf-8');
-    return JSON.parse(rawConfig) as IConfig;
+    config();
+    const c: IConfig = {
+        connection_string: process.env.DB_URL,
+        db_name: process.env.DB_NAME,
+    }
+    return c;
 }

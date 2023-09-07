@@ -1,4 +1,0 @@
-{
-    "connection_string": "mongodb+srv://u0:GuBCHfJV54RVyY4M@cluster0.8vjcbyf.mongodb.net/?retryWrites=true&w=majority",
-    "db_name":"test_inspection"
-}
